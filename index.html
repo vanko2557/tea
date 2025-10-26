@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чай від мене </title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 50%, #ffeaa7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .note-container {
+            background: #fff;
+            max-width: 500px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tape {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px dashed rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+
+        .note-header {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .from-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .note-title {
+            font-size: 1.8em;
+            color: #ff6b9d;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .time-label {
+            font-size: 0.85em;
+            color: #888;
+            font-style: italic;
+        }
+
+        .note-body {
+            padding: 40px 35px;
+            line-height: 1.9;
+            color: #444;
+        }
+
+        .message-text {
+            font-size: 1.15em;
+            margin-bottom: 25px;
+        }
+
+        .message-text p {
+            margin-bottom: 15px;
+        }
+
+        .tea-visual {
+            text-align: center;
+            margin: 35px 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .tea-visual:hover {
+            transform: scale(1.05);
+        }
+
+        .tea-emoji {
+            font-size: 6em;
+            display: inline-block;
+            animation: steam-wobble 2s ease-in-out infinite;
+        }
+
+        @keyframes steam-wobble {
+            0%, 100% {
+                transform: rotate(-2deg);
+            }
+            50% {
+                transform: rotate(2deg);
+            }
+        }
+
+        .tea-label {
+            margin-top: 15px;
+            font-size: 0.95em;
+            color: #999;
+            font-style: italic;
+        }
+
+        .ps-section {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 1px dashed #ddd;
+            font-size: 0.95em;
+            color: #666;
+        }
+
+        .ps-label {
+            font-weight: bold;
+            color: #ff6b9d;
+        }
+
+        .hidden-message {
+            display: none;
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            border-radius: 10px;
+            text-align: center;
+            animation: revealMessage 0.8s ease-out;
+        }
+
+        @keyframes revealMessage {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hidden-message-text {
+            font-size: 1.2em;
+            color: #333;
+            font-weight: 500;
+            line-height: 1.7;
+        }
+
+        .emoji-scatter {
+            font-size: 1.3em;
+            margin: 10px 0;
+        }
+
+        .note-container.revealed .hidden-message {
+            display: block;
+        }
+
+        .signature {
+            margin-top: 25px;
+            text-align: right;
+            font-size: 1.1em;
+            color: #ff6b9d;
+            font-style: italic;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 1.5em;
+            opacity: 0;
+            animation: floatHeart 3s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes floatHeart {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(1.5);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="note-container" id="noteContainer">
+        <div class="tape"></div>
+        
+        <div class="note-header">
+            <div class="from-label"></div>
+            <div class="note-title">Спеціальна доставка </div>
+            <div class="time-label" id="timeLabel"></div>
+        </div>
+
+        <div class="note-body">
+            <div class="message-text">
+                <p>Я тут подумав... коли тобі погано, найкраще що можна зробити - це випити гарячого чаю 🤷‍♂️</p>
+                <p>Тому я <i>віртуально</i> заварив для тебе найкращий чай у всесвіті (ну майже 😄)</p>
+            </div>
+
+            <div class="tea-visual" id="teaVisual">
+                <div class="tea-emoji">🍵</div>
+                <div class="tea-label">👆 клікни на чашку</div>
+            </div>
+
+            <div class="hidden-message" id="hiddenMessage">
+                <div class="emoji-scatter">✨ 🌸 ✨</div>
+                <div class="hidden-message-text">
+                    Одужуй скоріше 💫
+                </div>
+                <div class="emoji-scatter">✨ 🎀 🌈 </div>
+            </div>
+
+            <div class="ps-section">
+                <span class="ps-label">P.S.</span> Якщо чай не допоміг, можу завтра віртуально приготувати тобі какао 🍫
+            </div>
+
+            <div class="signature">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Set current time
+        const now = new Date();
+        const timeString = now.toLocaleTimeString('uk-UA', { 
+            hour: '2-digit', 
+            minute: '2-digit' 
+        });
+        document.getElementById('timeLabel').textContent = `Зараз ${timeString}`;
+
+        // Tea cup interaction
+        const teaVisual = document.getElementById('teaVisual');
+        const noteContainer = document.getElementById('noteContainer');
+        const teaEmoji = document.querySelector('.tea-emoji');
+
+        teaVisual.addEventListener('click', (e) => {
+            noteContainer.classList.add('revealed');
+            
+            // Create floating hearts
+            for (let i = 0; i < 6; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-float';
+                    heart.textContent = ['💕', '💖', '💗', '💝'][Math.floor(Math.random() * 4)];
+                    heart.style.left = (teaVisual.offsetLeft + Math.random() * 100) + 'px';
+                    heart.style.top = (teaVisual.offsetTop + 50) + 'px';
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 150);
+            }
+        });
