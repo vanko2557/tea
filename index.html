@@ -15,6 +15,23 @@
             font-family: 'Segoe UI', Tahoma, sans-serif;
             background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 50%, #ffeaa7 100%);
             min-height: 100vh;
+            display: flex;<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чай від мене 💌</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 50%, #ffeaa7 100%);
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -199,9 +216,9 @@
         <div class="tape"></div>
         
         <div class="note-header">
-           
-            <div class="note-title">Спеціальна доставка</div>
-            
+            <div class="from-label"></div>
+            <div class="note-title">Спеціальна доставка </div>
+            <div class="time-label" id="timeLabel"></div>
         </div>
 
         <div class="note-body">
@@ -227,13 +244,13 @@
                 <span class="ps-label">P.S.</span> Якщо чай не допоміг, можу завтра віртуально приготувати тобі какао 🍫
             </div>
 
-        <div class="signature">
-                
+            <div class="signature">
+               
             </div>
         </div>
     </div>
 
-  <script>
+    <script>
         // Set current time
         const now = new Date();
         const timeString = now.toLocaleTimeString('uk-UA', { 
@@ -265,3 +282,4 @@
             }
         });
     </script>
+           
